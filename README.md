@@ -26,7 +26,3 @@ return gulp.src('main.less', { cwd: 'resources/assets/styles/', read: false, })
   .pipe($.sourcemaps.write('./', { includeContent: true }))
   .pipe(gulp.dest('public/assets/'));
 ```
-
-## Future changes
-
-Maybe it's worth
