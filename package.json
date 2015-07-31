@@ -1,0 +1,37 @@
+{
+  "name": "gulp-webpack-sourcemaps",
+  "version": "0.1.0",
+  "description": "Wraps Webpack into a streaming interface (and generates sourcemaps)",
+  "main": "lib/index.js",
+  "keywords": [
+    "gulpplugin",
+    "gulp",
+    "webpack",
+    "watch",
+    "sourcemap"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/skyrpex/gulp-webpack-sourcemaps.git"
+  },
+  "scripts": {
+    "clean": "rimraf lib/ && mkdirp lib/",
+    "build": "babel src/ --out-dir lib/",
+    "watch": "npm run build -- --watch",
+    "prepublish": "npm run clean && npm run build"
+  },
+  "dependencies": {
+    "deepmerge": "^0.2.10",
+    "tempfile": "^1.1.1",
+    "through2": "^2.0.0",
+    "vinyl-sourcemaps-apply": "^0.1.4",
+    "webpack": "^1.10.5"
+  },
+  "devDependencies": {
+    "babel": "^5.8.19",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.4.2"
+  },
+  "author": "Cristian Pallarés <me@cpallares.com> (www.cpallares.com)",
+  "license": "ISC"
+}
