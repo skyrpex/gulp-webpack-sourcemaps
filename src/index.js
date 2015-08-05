@@ -1,10 +1,10 @@
-import fs from 'fs';
-import path from 'path';
-import webpack from 'webpack';
-import through2 from 'through2';
-import tempfile from 'tempfile';
-import deepmerge from 'deepmerge';
-import applySourceMap from 'vinyl-sourcemaps-apply';
+import path             from 'path';
+import webpack          from 'webpack';
+import through2         from 'through2';
+import tempfile         from 'tempfile';
+import deepmerge        from 'deepmerge';
+import MemoryFileSystem from 'memory-fs';
+import applySourceMap   from 'vinyl-sourcemaps-apply';
 
 const compile = (options = {}) => {
 
@@ -37,6 +37,7 @@ const compile = (options = {}) => {
     }
 
     const compiler = webpack(config);
+    const fs = compiler.outputFileSystem = new MemoryFileSystem();
 
     const done = (err, stats) => {
 
