@@ -21,7 +21,7 @@ const compile = (options = {}) => {
       },
     });
 
-    const useSourcemaps = file.sourceMap == true;
+    const useSourcemaps = file.sourceMap != null;
 
     if (useSourcemaps) {
       config = deepmerge(config, {
