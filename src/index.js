@@ -1,4 +1,5 @@
 import path             from 'path';
+import File             from 'vinyl';
 import webpack          from 'webpack';
 import through2         from 'through2';
 import tempfile         from 'tempfile';
@@ -6,18 +7,17 @@ import deepmerge        from 'deepmerge';
 import MemoryFileSystem from 'memory-fs';
 import applySourceMap   from 'vinyl-sourcemaps-apply';
 
-const compile = (options = {}) => {
+const compile = (options) => {
 
   return through2.obj(function(file, enc, callback) {
 
-    const filename = tempfile('.js');
-    const sourcemap = `${filename}.map`;
+    const filename = path.basename(file.path);
 
     let config = deepmerge(options, {
       entry: file.path,
       output: {
-        path: path.dirname(filename),
-        filename: path.basename(filename),
+        filename,
+        path: '/',
       },
     });
 
@@ -27,7 +27,6 @@ const compile = (options = {}) => {
       config = deepmerge(config, {
         devtool: 'sourcemap',
         output: {
-          sourcemapFilename: path.basename(sourcemap),
           devtoolModuleFilenameTemplate(info) {
             const filename = path.relative(process.cwd(), info.absoluteResourcePath);
             return filename;
@@ -64,18 +63,35 @@ const compile = (options = {}) => {
         });
       }
 
+      // console.log(fs.readdirSync('/'));
+
+      fs.readdirSync('/')
+        .filter(filename => !filename.match(/\.(map|js)$/))
+        .forEach(filename => {
+          // console.log(filename);
+
+          this.push(new File({
+            // cwd: "/",
+            // base: "/test/",
+            // path: "/test/file.coffee",
+            // contents: new Buffer("test = 123")
+            path: filename,
+            contents: fs.readFileSync(`/${filename}`),
+          }));
+        });
+
+      // Push main file
       const clone = file.clone();
-
-      const contents = fs.readFileSync(filename);
-
+      const contents = fs.readFileSync(`/${filename}`);
       clone.contents = contents;
       if (clone.sourceMap && useSourcemaps) {
-        const map = fs.readFileSync(sourcemap).toString();
+        const map = fs.readFileSync(`/${filename}.map`).toString();
         applySourceMap(clone, map);
       }
 
       this.push(clone);
 
+      // End
       if (!options.watch) {
         callback();
       }

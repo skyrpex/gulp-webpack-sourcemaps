@@ -1,6 +1,6 @@
 {
   "name": "gulp-webpack-sourcemaps",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Wraps Webpack into a streaming interface (and generates sourcemaps)",
   "main": "lib/index.js",
   "keywords": [
@@ -25,6 +25,7 @@
     "memory-fs": "^0.2.0",
     "tempfile": "^1.1.1",
     "through2": "^2.0.0",
+    "vinyl": "^0.5.3",
     "vinyl-sourcemaps-apply": "^0.1.4",
     "webpack": "^1.10.5"
   },
