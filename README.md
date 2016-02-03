@@ -1,4 +1,4 @@
-# Gulp Less Watcher
+# Gulp Webpack Sourcemaps
 
 Wraps Webpack into a streaming interface (and generates sourcemaps).
 
