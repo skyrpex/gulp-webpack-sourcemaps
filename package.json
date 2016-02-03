@@ -1,6 +1,6 @@
 {
   "name": "gulp-webpack-sourcemaps",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Wraps Webpack into a streaming interface (and generates sourcemaps)",
   "main": "lib/index.js",
   "keywords": [
