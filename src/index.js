@@ -59,7 +59,7 @@ const compile = (options) => {
 
       if (stats.hasWarnings()) {
         stats.compilation.warnings.forEach(warning => {
-          this.emit('warning', error);
+          this.emit('warning', warning);
         });
       }
 
